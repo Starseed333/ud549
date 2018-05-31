@@ -37,11 +37,16 @@ describe("Address Book", function() {
 });
 
 describe("Async Address Book", function(){
-  it("should grab initial contacts", function(){
-    var addressBook = new AddressBook();
-
-    addressBook.getInitialContacts(function(){
-      expect(addressBook.initialComplete).toBe(true);
+  var addressBook = new AddressBook();
+    beforeEach(function(done){
+      addressBook.getInitialContact(function(){
+        //signal to the framework that the async function is done
+        done();
+      });
     });
+    //pass done within the specs and then call done aftert the tests
+  it("should grab initial contacts", function(done){
+      expect(addressBook.initialComplete).toBe(true);
+      done();
   });
 });
